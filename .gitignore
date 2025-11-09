@@ -1,0 +1,24 @@
+# This file is used to ignore files and directories in a Git repository.
+# It is a good practice to keep this file in the root of your repository.
+*.so
+.coverage
+.eggs
+.vscode
+
+# Python
+__pycache__
+build/
+/dist/
+*.egg-info
+*.pyc
+.idea/
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

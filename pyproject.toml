@@ -1,0 +1,36 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools >= 77.0.3"]
+
+[project]
+authors = [{name = "Maor A", email = "m2a2@users.noreply.github.com"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Framework :: AsyncIO",
+  "Topic :: Security",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: System :: Networking"
+]
+dependencies = [
+  "aioquic",
+  "wsproto"
+]
+description = "QuicDraw Fuzzing and Racing HTTP/3 (over QUIC)"
+dynamic = ["version"]  # Use dynamic versioning
+keywords = ["HTTP/3", "QUIC", "Web", "Security", "Fuzzing", "Fuzz", "Race-Conditions", "Web Security", "Web Application Security", "HTTP3"]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+name = "quicdraw"
+readme = "README.md"
+requires-python = ">=3.9"
+
+[project.scripts]
+quicdraw = "quicdraw.quicdraw:cli_main"
+
+[project.urls]
+Homepage = "https://github.com/cyberark/QuicDraw"
+Issues = "https://github.com/cyberark/QuicDraw/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "quicdraw.quicdraw.__version__"}
