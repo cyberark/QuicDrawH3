@@ -88,7 +88,7 @@ If there are no wheels for your system or if you wish to build QuicDraw from sou
 Clone the repository:
 
 ```bash
-git clone https://github.com/cyberark/quicdraw.git
+git clone https://github.com/cyberark/quicdrawh3.git
 python3 -m build
 pip install .\dist\quicdraw-<VERSION>.tar.gz
 ```
