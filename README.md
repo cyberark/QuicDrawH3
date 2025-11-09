@@ -2,7 +2,7 @@
 
 ```bash
     -----------
-    QuicDraw: HTTP/3 Fuzzing and Racing (Client)
+    QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)
     -----------
                _         _
               (_)       | |                          ______
@@ -24,7 +24,7 @@
 QuicDraw is a security research tool designed for fuzzing and racing HTTP/3 servers.
 QuicDraw implements the `Quic-Fin-Sync` on HTTP/3 (over QUIC), for race-condition testing.
 
-The tool was originally published as part of CyberArk Labs' research: "[Racing and Fuzzing HTTP/3: Open-sourcing QuicDrawH3](https://www.cyberark.com/resources/threat-research-blog/racing-and-fuzzing-http-3-open-sourcing-quicdrawh3)"
+The tool was originally published as part of CyberArk Labs' research: "[Racing and Fuzzing HTTP/3: Open-sourcing QuicDraw(H3)](https://www.cyberark.com/resources/threat-research-blog/racing-and-fuzzing-http-3-open-sourcing-quicdraw)"
 
 ## TOC
 
