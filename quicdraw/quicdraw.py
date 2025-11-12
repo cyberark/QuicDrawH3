@@ -6,8 +6,8 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.28"
-__description__ = "QuicDraw: HTTP/3 Fuzzing and Racing (Client)"
+__version__ = "0.8.29"
+__description__ = "QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
 import asyncio

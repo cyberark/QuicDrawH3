@@ -16,7 +16,7 @@ dependencies = [
   "aioquic",
   "wsproto"
 ]
-description = "QuicDraw Fuzzing and Racing HTTP/3 (over QUIC)"
+description = "QuicDraw(H3) Fuzzing and Racing HTTP/3 (over QUIC)"
 dynamic = ["version"]  # Use dynamic versioning
 keywords = ["HTTP/3", "QUIC", "Web", "Security", "Fuzzing", "Fuzz", "Race-Conditions", "Web Security", "Web Application Security", "HTTP3"]
 license = "Apache-2.0"
@@ -29,8 +29,8 @@ requires-python = ">=3.9"
 quicdraw = "quicdraw.quicdraw:cli_main"
 
 [project.urls]
-Homepage = "https://github.com/cyberark/QuicDraw"
-Issues = "https://github.com/cyberark/QuicDraw/issues"
+Homepage = "https://github.com/cyberark/QuicDrawh3"
+Issues = "https://github.com/cyberark/QuicDrawh3/issues"
 
 [tool.setuptools.dynamic]
 version = {attr = "quicdraw.quicdraw.__version__"}
