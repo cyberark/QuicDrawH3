@@ -1,12 +1,12 @@
 # QuicDraw is a client for fuzzing and racing HTTP/3 servers.
 # It can send GET and POST requests.
 # It is designed to be used with and based on the aioquic(https://github.com/aiortc/aioquic) library.
-# GitHub: https://github.com/cyberark/quicdraw
+# GitHub: https://github.com/cyberark/quicdrawh3
 # License: Apache-2.0 License
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.29"
+__version__ = "0.8.30"
 __description__ = "QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
@@ -492,7 +492,7 @@ async def perform_http_requests(
                 for header, value in http_event.headers:
                     if header == b":status":
                         status = value.decode()
-                        logger.info(
+                        print(
                             "Response headers received (stream:{0}) {1} {2} : status: ({3})".format(
                                 http_event.stream_id, method, urlparse(url).path, status
                             )
