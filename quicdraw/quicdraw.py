@@ -6,7 +6,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.30"
+__version__ = "0.8.31"
 __description__ = "QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
@@ -282,10 +282,14 @@ class HttpClient(QuicConnectionProtocol):
                     full_path = request.url.full_path
                     if i < len(wordlist):
                         # Use the word from the wordlist
-                        full_path = full_path.replace("FUZZ", wordlist[i])
+                        payload = wordlist[i]
                     else:
                         # If we run out of words, just use the last one
-                        full_path = full_path.replace("FUZZ", wordlist[-1])
+                        payload = wordlist[-1]
+                    full_path = full_path.replace("FUZZ", payload)
+                    logger.info(
+                        "Payload set (stream:{1}): |{0}|".format(payload, stream_id)
+                    )
                     modified_full_paths.append(full_path)
         else:
             if the_wordlist:
@@ -355,12 +359,17 @@ class HttpClient(QuicConnectionProtocol):
                 for i in range(0, total_streams):
                     stream_id = base_stream_id + i * 4
                     data = request.content
+                    payload = b""
                     if i < len(wordlist):
                         # Use the word from the wordlist
-                        data = data.replace(b"FUZZ", wordlist[i].encode())
+                        payload = wordlist[i]
                     else:
                         # If we run out of words, just use the last one
-                        data = data.replace(b"FUZZ", wordlist[i].encode())
+                        payload = wordlist[-1]
+                    data = data.replace(b"FUZZ", payload.encode())
+                    logger.info(
+                        "Payload set (stream:{1}): |{0}|".format(payload, stream_id)
+                    )
                     modified_requests_data.append(data)
         else:
             if the_wordlist:
@@ -509,7 +518,7 @@ async def perform_http_requests(
                         )
                     )
         logger.info(
-            "Response data   received (stream:{0}) {1} {2} : {3} bytes".format(
+            "Response data  received (stream:{0}) {1} {2} : {3} bytes".format(
                 last_stream_id if last_stream_id is not None else "-",
                 method,
                 urlparse(url).path,
