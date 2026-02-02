@@ -7,7 +7,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.32"
+__version__ = "0.8.33"
 __description__ = "QuicDraw-UI: HTTP/3 Request Editor - A GUI for QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
@@ -542,9 +542,24 @@ def parse_command_line_arguments():
     return arg_dict
 
 
-if __name__ == "__main__":
+def cli_main():
     app = QApplication(sys.argv)
     cli_params = parse_command_line_arguments()
     ui_window = QuicDrawUI(cli_params)
     ui_window.show()
     sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    try:
+        cli_main()
+    except KeyboardInterrupt:
+        print("\nQuicDraw interrupted by user.")
+    except Exception as e:
+        print(
+            "An error occurred: {0} : {1}".format(
+                e.__class__.__name__ if e.__class__ is not None else "",
+                str(e),
+            )
+        )
+        exit(1)

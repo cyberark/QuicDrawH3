@@ -25,8 +25,12 @@ name = "quicdraw"
 readme = "README.md"
 requires-python = ">=3.9"
 
+[project.optional-dependencies]
+ui = ["pyside6"]
+
 [project.scripts]
 quicdraw = "quicdraw.quicdraw:cli_main"
+quicdraw-ui = "quicdraw.ui.quicdraw-ui:cli_main"
 
 [project.urls]
 Homepage = "https://github.com/cyberark/QuicDrawh3"

@@ -35,14 +35,22 @@ Prerequisite:
 - python >=3.9
 - pip3
 
+### Install using pip (PyPi)
+
+The easiest way to install QuicDraw-ui is to run:
+
+```bash
+pip install quicdraw[ui]
+```
+
 ### Install using pip
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 ## Run quicdraw-ui
 
-```
+```bash
 python quicdraw-ui/quicdraw-ui.py https://cyberark.com
 ```
