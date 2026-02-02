@@ -35,6 +35,14 @@ from PySide6.QtWidgets import (
 )
 
 
+def ui_main() -> None:
+    app = QApplication(sys.argv)
+    cli_params = parse_command_line_arguments()
+    ui_window = QuicDrawUI(cli_params)
+    ui_window.show()
+    sys.exit(app.exec())
+
+
 class QuicDrawWorker(QThread):
     """Worker thread for running QuicDraw commands"""
 
@@ -542,17 +550,9 @@ def parse_command_line_arguments():
     return arg_dict
 
 
-def cli_main():
-    app = QApplication(sys.argv)
-    cli_params = parse_command_line_arguments()
-    ui_window = QuicDrawUI(cli_params)
-    ui_window.show()
-    sys.exit(app.exec())
-
-
 if __name__ == "__main__":
     try:
-        cli_main()
+        ui_main()
     except KeyboardInterrupt:
         print("\nQuicDraw interrupted by user.")
     except Exception as e:

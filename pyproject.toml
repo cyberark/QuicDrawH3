@@ -30,7 +30,7 @@ ui = ["pyside6"]
 
 [project.scripts]
 quicdraw = "quicdraw.quicdraw:cli_main"
-quicdraw-ui = "quicdraw.ui.quicdraw-ui:cli_main"
+quicdraw-ui = "quicdraw.ui.ui:ui_main"
 
 [project.urls]
 Homepage = "https://github.com/cyberark/QuicDrawh3"
