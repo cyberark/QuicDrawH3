@@ -7,7 +7,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.33"
+__version__ = "0.8.34"
 __description__ = "QuicDraw-UI: HTTP/3 Request Editor - A GUI for QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
@@ -339,8 +339,6 @@ class QuicDrawUI(QMainWindow):
             QMessageBox.warning(self, "Error", "Please enter a URL")
             return
         data_plain = self.data_input.toPlainText()
-        print(data_plain)
-        print(escapeStringBash(data_plain))
         data = data_plain
         headers = self.headers_input.toPlainText().strip()
         total_requests = (
@@ -418,7 +416,7 @@ class QuicDrawUI(QMainWindow):
         self.output_text.append(text)
 
     def append_error(self, text):
-        self.output_text.append(f"ERROR: {text}")
+        self.output_text.append(f"(Log): {text}")
 
     def on_command_finished(self):  # , finished_command):
         self.status_label.setText("Ready")
