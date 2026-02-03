@@ -95,6 +95,8 @@ pip install .\dist\quicdraw-<VERSION>.tar.gz
 
 Install module dependencies. (You may prefer to do this within a [Virtual Environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/))
 
+---
+
 ## Usage
 
 ### Print Help
@@ -105,13 +107,13 @@ quicdraw -h
 
 ### Normal HTTP/3 (over QUIC) Requests
 
-#### An HTTP/3 GET Request
+### An HTTP/3 GET Request
 
 ```bash
 quicdraw <https://http3_server.com/path>
 ```
 
-#### An HTTP/3 POST Request
+### An HTTP/3 POST Request
 
 HTTP POST requests are determined by using the `-d` argument followed by the HTTP POST data to be sent.
 
@@ -138,21 +140,21 @@ To use the same request multiple times (using the `Quic-Fin-Sync` / `single-pack
 
 Note: If a WORDLIST (`-w`) argument is specified, this argument (`-tr TOTAL_REQUESTS`) is overridden by the wordlist number of lines.
 
-#### Racing example
+### Racing example
 
-##### Repeat the same request 12 times (`-tr 12`) (using `Quic-Fin-Sync`)
+#### Repeat the same request 12 times (`-tr 12`) (using `Quic-Fin-Sync`)
 
 ```bash
 quicdraw <https://http3_server.com/path> -d '{"key":"value"}' -H 'Authorization: bearer eyJ...' -tr 12
 ```
 
-##### Repeat the same request 12 times (`-tr 12`), use `Quic-Fin-Sync` and log (`-l`) TLS secrets
+#### Repeat the same request 12 times (`-tr 12`), use `Quic-Fin-Sync` and log (`-l`) TLS secrets
 
 ```bash
 quicdraw <https://http3_server.com/path> -d '{"key":"value"}' -H 'Authorization: bearer eyJ...' -H 'content-type: application/json' -l /m2a/ssl_key_log_file.log -tr 12
 ```
 
-##### Repeat the same request 12 times (`-tr 12`), use `Quic-Fin-Sync`, log (`-l`) TLS secrets, and print verbose (`-v`) output including HTTP response content
+#### Repeat the same request 12 times (`-tr 12`), use `Quic-Fin-Sync`, log (`-l`) TLS secrets, and print verbose (`-v`) output including HTTP response content
 
 ```bash
 quicdraw <https://http3_server.com/path> -d '{"key": "value"}' -H 'Authorization: bearer eyJ...' -H 'content-type: application/json' -l /m2a/ssl_key_log_file.log -tr 12 -v
@@ -167,13 +169,90 @@ To define fuzzing, use the wordlist (`-w`/`--wordlist`) argument with the `FUZZ`
 
 Note: If the payload (`-d`) does not include the `FUZZ` keyword, the same data will be sent according to the _number of lines_ in the wordlist file.
 
-#### Fuzzing Example
+### Fuzzing Example
 
-##### Use `Quic-Fin-Sync`, go over the data section (`-d`), and replace any reference to the `FUZZ` keyword with the value given in the wordlist file (`-w`) as the payload
+#### Use `Quic-Fin-Sync`, go over the data section (`-d`), and replace any reference to the `FUZZ` keyword with the value given in the wordlist file (`-w`) as the payload
 
 ```bash
 quicdraw <https://http3_server.com/path> -w path/to/wordlist -d '{"example_key":"FUZZ"}'
 ```
+
+---
+
+# QuicDraw-UI
+
+```bash
+    -----------
+    QuicDraw-UI: HTTP/3 Request Editor - A GUI for QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)
+    -----------
+               _         _
+              (_)       | |                            __  ______
+    __ _ _   _ _  ___ __| |_ __ __ ___      __        / / / /  _/
+   / _` | | | | |/ __/ _` | '__/ _` \ \ /\ / / _____ / / / // /
+  | (_| | |_| | | (_| (_| | | | (_| |\ V  V / /____// /_/ // /
+   \__, |\__,_|_|\___\__,_|_|  \__,_| \_/\_/        \____/___/
+      |_|    _______
+         \  |QFS____| -------------------- HTTP/3
+          \ |_//
+            |_|
+```
+
+### Install using pip (PyPi)
+
+The easiest way to install QuicDraw-ui is to run:
+
+```bash
+pip install quicdraw[ui]
+quicdraw-ui -h
+```
+
+## Example 1: Simple HTTP/3 Request
+
+Send a basic request to an HTTP/3 server:
+
+```bash
+python quicdraw-ui/quicdraw-ui.py https://www.cyberark.com
+```
+
+**HTTP/3 Request Editor:**
+
+![Request Editor](screenshots/request-editor.png)
+
+**Results:**
+
+![Results](screenshots/results.png)
+
+---
+
+## Example 2: Fuzzing with a Wordlist
+
+To fuzz an HTTP/3 endpoint, you need:
+
+1. **A wordlist file** (`-w`) - contains payloads to test (one per line)
+2. **The `FUZZ` keyword** in your data - gets replaced by each wordlist entry
+
+```bash
+python quicdraw-ui/quicdraw-ui.py https://www.cyberark.com -w path/to/wordlist -d '{"example_key":"FUZZ"}'
+```
+
+![Fuzzing Example](screenshots/fuzzing.png)
+
+The `FUZZ` keyword in `{"example_key":"FUZZ"}` will be replaced with each line from your wordlist file.
+
+---
+
+## Command-Line Options
+
+| Option                  | Description                                           |
+| ----------------------- | ----------------------------------------------------- |
+| `-d, --data`            | POST body data (use `FUZZ` for wordlist substitution) |
+| `-H, --header`          | Custom header (repeatable)                            |
+| `-w, --wordlist`        | Fuzzing wordlist file                                 |
+| `-tr, --total-requests` | Number of concurrent requests (race testing)          |
+| `-l, --secrets-log`     | TLS secrets file (for Wireshark)                      |
+| `-v, --verbose`         | Verbose output                                        |
+
+---
 
 ## Contributing
 
