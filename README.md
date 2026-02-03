@@ -42,12 +42,16 @@ The tool was originally published as part of CyberArk Labs' research: "[Racing a
       - [Racing example](#racing-example)
     - [Fuzzing HTTP3 applications `-d` DATA `-w` WORDLIST](#fuzzing-http3-applications--d-data--w-wordlist)
       - [Fuzzing Example](#fuzzing-example)
-  - [Contributing](#contributing)
-  - [Limitations](#limitations)
-  - [Known issues](#known-issues)
-  - [License](#license)
-  - [Contact](#contact)
-    - [Contact Via LinkedIn](#contact-via-linkedin)
+- [QuicDraw-UI](#quicdraw-ui)
+  - [Install quicdraw-ui using pip (PyPi)](#install-quicdraw-ui-using-pip-pypi)
+  - [Example 1: Simple HTTP/3 Request](#example-1-simple-http3-request)
+  - [Example 2: Fuzzing with a Wordlist](#example-2-fuzzing-with-a-wordlist)
+- [Contributing](#contributing)
+- [Limitations](#limitations)
+- [Known issues](#known-issues)
+- [License](#license)
+- [Contact](#contact)
+  - [Contact Via LinkedIn](#contact-via-linkedin)
 
 ##  Main Features
 
@@ -197,9 +201,9 @@ quicdraw <https://http3_server.com/path> -w path/to/wordlist -d '{"example_key":
             |_|
 ```
 
-### Install using pip (PyPi)
+## Install quicdraw-ui using pip (PyPi)
 
-The easiest way to install QuicDraw-ui is to run:
+The easiest way to install QuicDraw-UI is to run:
 
 ```bash
 pip install quicdraw[ui]
@@ -215,12 +219,22 @@ python quicdraw-ui/quicdraw-ui.py https://www.cyberark.com
 ```
 
 **HTTP/3 Request Editor:**
+![HTTP/3 Request Editor](screenshots\QD-UI_basic_1.png "HTTP/3 Request Editor")
 
-![Request Editor](screenshots/request-editor.png)
+**Advanced Tab**
 
-**Results:**
+![Advanced Tab](screenshots\QD-UI_basic_3.png "Advanced Tab")
 
-![Results](screenshots/results.png)
+The following options can be set by the advanced tab
+
+| Option              | Description                      |
+| ------------------- | -------------------------------- |
+| `-l, --secrets-log` | TLS secrets file (for Wireshark) |
+| `-v, --verbose`     | Verbose output                   |
+
+**Results Tab:**
+
+![Results Tab](screenshots\QD-UI_basic_2.png "Results Tab")
 
 ---
 
@@ -254,12 +268,12 @@ The `FUZZ` keyword in `{"example_key":"FUZZ"}` will be replaced with each line f
 
 ---
 
-## Contributing
+# Contributing
 
 We welcome contributions of all kinds to this repository.
 For instructions on how to get started and descriptions of our development workflows, please see our [contributing guide](CONTRIBUTING.md)
 
-## Limitations
+# Limitations
 
 - The `Quic-Fin-Sync` is mostly effective in POST requests (using the `-d` argument).
   - GET requests will benefit from the mechanism, but according to our tests, only a few requests "fit" on a single QUIC packet.
@@ -269,19 +283,19 @@ For instructions on how to get started and descriptions of our development workf
 
 ---
 
-## Known issues
+# Known issues
 
 - "socket.gaierror: [Errno 11001] getaddrinfo failed" error returned on DNS error
 
-## License
+# License
 
 Copyright (c) 2025 CyberArk Software Ltd. All rights reserved
 This repository is licensed under the Apache-2.0 License - see [`LICENSE`](LICENSE) for more details.
 
-## Contact
+# Contact
 
 Feel free to contact us via GitHub issues if you have any feature requests or project issues.
 
-### Contact Via LinkedIn
+## Contact Via LinkedIn
 
 [Maor Abutbul](https://il.linkedin.com/in/maor-abutbul)
