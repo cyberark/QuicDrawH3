@@ -285,7 +285,7 @@ For instructions on how to get started and descriptions of our development workf
 
 # Known issues
 
-- "socket.gaierror: [Errno 11001] getaddrinfo failed" error returned on DNS error
+- On DNS error - the following error returned: "socket.gaierror: [Errno 11001] getaddrinfo failed"
 
 # License
 
