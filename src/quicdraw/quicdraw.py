@@ -6,7 +6,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.33"
+__version__ = "0.8.34"
 __description__ = "QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse

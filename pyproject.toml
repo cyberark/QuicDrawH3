@@ -38,3 +38,6 @@ Issues = "https://github.com/cyberark/QuicDrawh3/issues"
 
 [tool.setuptools.dynamic]
 version = {attr = "quicdraw.quicdraw.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
