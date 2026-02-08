@@ -28,7 +28,7 @@ The tool was originally published as part of CyberArk Labs' research: "[Racing a
 
 ## TOC
 
-- [QuicDraw](#quicdraw)
+- [QuicDraw](#quicdraw-h3)
   - [Main Features](#main-features)
   - [Quick Start](#quick-start)
     - [Install using pip](#install-using-pip)
