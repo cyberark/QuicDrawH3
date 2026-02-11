@@ -215,7 +215,7 @@ quicdraw-ui -h
 Send a basic request to an HTTP/3 server:
 
 ```bash
-python quicdraw-ui/quicdraw-ui.py https://www.cyberark.com
+quicdraw-ui https://www.cyberark.com
 ```
 
 **HTTP/3 Request Editor:**
@@ -246,7 +246,7 @@ To fuzz an HTTP/3 endpoint, you need:
 2. **The `FUZZ` keyword** in your data - gets replaced by each wordlist entry
 
 ```bash
-python quicdraw-ui/quicdraw-ui.py https://www.cyberark.com -w path/to/wordlist -d '{"example_key":"FUZZ"}'
+quicdraw-ui https://www.cyberark.com -w path/to/wordlist -d '{"example_key":"FUZZ"}'
 ```
 
 ![Fuzzing Example](screenshots/fuzzing.png)
