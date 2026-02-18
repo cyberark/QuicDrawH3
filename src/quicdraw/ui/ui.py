@@ -7,7 +7,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.8.34"
+__version__ = "0.9.0"
 __description__ = "QuicDraw-UI: HTTP/3 Request Editor - A GUI for QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
