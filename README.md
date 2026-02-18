@@ -71,7 +71,7 @@ Prerequisite:
 - python >=3.9
 - pip3
 
-### Install using pip
+## Install using pip
 
 The easiest way to install QuicDraw is to run:
 
@@ -79,7 +79,16 @@ The easiest way to install QuicDraw is to run:
 pip install quicdraw
 ```
 
-#### Runninig (after pip install)
+### Install quicdraw-ui using pip (PyPi)
+
+The easiest way to install QuicDraw-UI is to run:
+
+```bash
+pip install quicdraw[ui]
+quicdraw-ui -h
+```
+
+### Runninig (after pip install)
 
 ```bash
 quicdraw -h
@@ -257,14 +266,19 @@ The `FUZZ` keyword in `{"example_key":"FUZZ"}` will be replaced with each line f
 
 ## Command-Line Options
 
+QuicDraw-UI parameters are imported to the UI.
+
 | Option                  | Description                                           |
 | ----------------------- | ----------------------------------------------------- |
-| `-d, --data`            | POST body data (use `FUZZ` for wordlist substitution) |
+| `-d, --data`            | HTTP POST data (use `FUZZ` for wordlist substitution) |
 | `-H, --header`          | Custom header (repeatable)                            |
+| `-b, --cookie`          | Custom cookie header                                  |
 | `-w, --wordlist`        | Fuzzing wordlist file                                 |
 | `-tr, --total-requests` | Number of concurrent requests (race testing)          |
 | `-l, --secrets-log`     | TLS secrets file (for Wireshark)                      |
 | `-v, --verbose`         | Verbose output                                        |
+
+Note: "copy-as-curl compatible" meaning common curl arguments (-d,-H,-b) are supported by QuicDraw-UI.
 
 ---
 
