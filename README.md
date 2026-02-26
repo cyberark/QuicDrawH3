@@ -260,11 +260,11 @@ quicdraw-ui https://www.cyberark.com
 ```
 
 **HTTP/3 Request Editor:** ![HTTP/3 Request
-Editor](screenshots\QD-UI_basic_1.png "HTTP/3 Request Editor")
+Editor](screenshots/QD-UI_basic_1.png "HTTP/3 Request Editor")
 
 **Advanced Tab**
 
-![Advanced Tab](screenshots\QD-UI_basic_3.png "Advanced Tab")
+![Advanced Tab](screenshots/QD-UI_basic_3.png "Advanced Tab")
 
 The following options can be set by the advanced tab
 
@@ -277,7 +277,7 @@ Option Description
 
 **Results Tab:**
 
-![Results Tab](screenshots\QD-UI_basic_2.png "Results Tab")
+![Results Tab](screenshots/QD-UI_basic_2.png "Results Tab")
 
 ---
 
