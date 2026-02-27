@@ -6,7 +6,7 @@
 # Author: Maor Abutbul <CyberArk Labs>
 
 # Version and description
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 __description__ = "QuicDraw(H3): HTTP/3 Fuzzing and Racing (Client)"
 
 import argparse
@@ -156,6 +156,7 @@ class HttpClient(QuicConnectionProtocol):
         headers: Optional[Dict[str, str]] = None,
         wordlist: Optional[str] = None,
         total_requests: Optional[int] = 1,
+        fin_sync_delay: Optional[float] = 1.0,
     ) -> List[Deque[H3Event]]:
         """
         Perform a GET request.
@@ -164,6 +165,7 @@ class HttpClient(QuicConnectionProtocol):
             HttpRequest(method="GET", url=URL(url), headers=headers),
             the_wordlist=wordlist,
             total_requests=total_requests,
+            fin_sync_delay=fin_sync_delay,
         )
 
     async def send_post_streams(
@@ -173,6 +175,7 @@ class HttpClient(QuicConnectionProtocol):
         headers: Optional[Dict[str, str]] = None,
         wordlist: Optional[str] = None,
         total_requests: Optional[int] = 1,
+        fin_sync_delay: Optional[float] = 1.0,
     ) -> List[Deque[H3Event]]:
         """
         Perform a POST request.
@@ -184,6 +187,7 @@ class HttpClient(QuicConnectionProtocol):
             ),
             the_wordlist=wordlist,
             total_requests=total_requests,
+            fin_sync_delay=fin_sync_delay,
         )
 
     async def websocket(
@@ -257,7 +261,7 @@ class HttpClient(QuicConnectionProtocol):
                 self.http_event_received(http_event)
 
     async def _send_get_requests(
-        self, request: HttpRequest, the_wordlist, total_requests
+        self, request: HttpRequest, the_wordlist, total_requests, fin_sync_delay
     ) -> List[Deque[H3Event]]:
         waiters_bulk_list = []
         total_streams = 5
@@ -335,7 +339,7 @@ class HttpClient(QuicConnectionProtocol):
         return await asyncio.gather(*waiters_bulk_list)
 
     async def _send_post_requests(
-        self, request: HttpRequest, the_wordlist, total_requests
+        self, request: HttpRequest, the_wordlist, total_requests, fin_sync_delay
     ) -> List[Deque[H3Event]]:
         waiters_list = []
         waiters_bulk_list = []
@@ -426,7 +430,7 @@ class HttpClient(QuicConnectionProtocol):
         self.transmit()
         asyncio.gather(*waiters_bulk_list)
         # wait for the headers and (most of the) data to be sent.
-        await asyncio.sleep(1.0)
+        await asyncio.sleep(fin_sync_delay)
         self._quic.send_ping(9999)  # send a ping to ensure the connection is alive.
         # send the last byte of data to end the stream
         for i in range(0, len(modified_requests_data)):
@@ -456,6 +460,7 @@ async def perform_http_requests(
     extra_headers: Optional[list[str]],
     wordlist: Optional[str],
     total_requests: Optional[int],
+    fin_sync_delay: Optional[float],
     include: bool,
     output_dir: Optional[str],
 ) -> None:
@@ -475,6 +480,7 @@ async def perform_http_requests(
             headers=headers_dict,
             wordlist=wordlist,
             total_requests=total_requests,
+            fin_sync_delay=fin_sync_delay,
         )
         method = "POST"
     else:
@@ -483,6 +489,7 @@ async def perform_http_requests(
             headers=headers_dict,
             wordlist=wordlist,
             total_requests=total_requests,
+            fin_sync_delay=fin_sync_delay,
         )
         method = "GET"
 
@@ -609,6 +616,7 @@ async def main(
     extra_headers: Optional[list[str]],
     wordlist: Optional[str],
     total_requests: int,
+    fin_sync_delay: Optional[float],
     include: bool,
     output_dir: Optional[str],
     local_port: int,
@@ -681,6 +689,7 @@ async def main(
                     extra_headers=extra_headers,
                     wordlist=wordlist,
                     total_requests=total_requests,
+                    fin_sync_delay=fin_sync_delay,
                     include=include,
                     output_dir=output_dir,
                 )
@@ -800,6 +809,14 @@ def cli_main():
         help="Number of requests to send, the a provided wordlist overrides this argument, will use the number of words (lines) in the wordlist file (default: 1)",
         default=1,
     )
+    parser.add_argument(
+        "-sd",
+        "--sync-delay",
+        type=float,
+        help="Delay in seconds between sending the bulk of the requests and the last byte of the request (fin-sync-delay) (default: 1.0)",
+        default=1.0,
+    )
+
     parser.add_argument(
         "-i",
         "--include",
@@ -942,6 +959,9 @@ def cli_main():
     if args.cookie is not None:
         extra_headers_and_cookie.append(["cookie: {}".format(args.cookie[0])])
 
+    if args.sync_delay is not None and args.sync_delay < 0:
+        raise ValueError("(fin) sync-delay must be non-negative")
+
     if uvloop is not None:
         uvloop.install()
     asyncio.run(
@@ -952,6 +972,7 @@ def cli_main():
             extra_headers=extra_headers_and_cookie,
             wordlist=args.wordlist,
             total_requests=args.total_requests,
+            fin_sync_delay=args.sync_delay,
             include=args.include,
             output_dir=args.output_dir,
             local_port=args.local_port,
